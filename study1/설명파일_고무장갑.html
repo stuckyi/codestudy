@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> code study 1</title>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.play.js"></script>
+    <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+<script>
+
+var 별;
+
+    
+function setup() {
+  createCanvas(500,500);
+  별 = loadAnimation("assets/고무장갑_1.png", "assets/고무장갑_7.png");
+}
+
+function draw() {
+  background(255,255,255);  
+  animation(별, mouseX, 300);
+}
+</script>
+</body>
+</html>
