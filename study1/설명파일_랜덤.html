@@ -3,46 +3,93 @@
 <head>
     <meta charset="utf-8">
     <title> code study 1</title>
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/p5.js"></script>
-    <script src="js/lib/p5.play.js"></script>
+    
     <link rel="stylesheet" href="image/style.css"/>
 </head>
 <body>
 <script>
+var 검정색 = 'black',
+흰색 = 'white',
+노랑색 = 'yellow',
+회색 = 'grey',
+초록색 = 'green',
+파란색 = 'blue',
+보라색 = 'pupple';
+
 var 중력 = 0.2;
 
 function setup() {
-  createCanvas(800,300);
+  createCanvas(displayWidth,600);
 }
 
 function draw() {
-  background(255,255,255);  
-  
-  fill(0);
-  textAlign(CENTER);
-  text("클릭하면 새로운 캐릭터가 나타납니다!", width/2, height-20);
-  
+  background('검정색');  
+  안내메시지(); // 도움 메시지 출력
+
+ mySpriteAction(); //나의 캐릭터 움직이기
+  drawSprites(); // 나의 캐릭터 그리기
+}
+    
+    
+function mousePressed() {
+    var 새로운캐릭터 = createSprite(mouseX, mouseY);
+    // ** 새로운 캐릭터를 추가하는 곳 **
+    새로운캐릭터.addAnimation(
+      "normal", 
+      "image/고구마돌이.png", 
+      "image/나나.png",
+       "image/단데리온.png",
+       "image/개골구리.png",
+       "image/거베라.png",
+       "image/고스코라.png",
+       "image/곰돌이.png",
+       "image/곰순이.png",
+       "image/그레이프.png",
+       "image/그린독.png",
+       "image/꿀꿀이.png"
+    );
+                         
+    새로운캐릭터.animation.stop();
+    var f = round(random(0, 새로운캐릭터.animation.getLastFrame()));
+    새로운캐릭터.animation.changeFrame(f);
+}
+
+
+
+function mySpriteAction(){
   for(var i=0; i<allSprites.length; i++){
     var mySprite = allSprites[i];
     mySprite.addSpeed(중력, 90);
     if(mySprite.position.y > height + 100){mySprite.remove();}    
   }
   if(frameCount%10 == 0){print("Sprite in the scene: " +allSprites.length);}
-  drawSprites();
 }
-    
-    
 
-function mousePressed() {
-    var newSprite = createSprite(mouseX, mouseY);
-
-    newSprite.addAnimation("normal", "image/고구마돌이.png", "image/나나.png", "image/단데리온.png");
-                         
-    newSprite.animation.stop();
-    var f = round(random(0, newSprite.animation.getLastFrame()));
-    newSprite.animation.changeFrame(f);
+function 안내메시지(){
+  fill('black');
+  textAlign(CENTER); //글자 중앙정렬
+  text("클릭하면 새로운 캐릭터가 나타납니다!", width/2, height-20);
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.play.js"></script>
 </body>
 </html>

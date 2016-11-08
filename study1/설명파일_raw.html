@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> code study 1</title>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.play.js"></script>
+    <link rel="stylesheet" href="image/style.css"/>
+</head>
+<body>
+<script>
+
+var 별;
+
+    
+function setup() {
+  createCanvas(displayWidth,500);
+  별 = loadAnimation("image/raw/raw_1.png", "image/raw/raw_20.png");
+}
+
+function draw() {
+  background(255,255,255);  
+  animation(별, 400, 300);
+}
+</script>
+</body>
+</html>
