@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> code study 1</title>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.sound.js"></script>
+    <script src="js/lib/p5.play.js"></script>
+    
+    <link rel="stylesheet" href="image/style.css"/>
+</head>
+<body>
+<script>
+
+var 곽규섭;
+var 곽규섭위치;
+var 키티;
+var 키티위치;
+
+var 점프 = false;
+var 벽돌;
+var 벽돌위치 = 450;
+    
+function preload() {
+  mySound = loadSound('sound/supermario.mp3');
+  벽돌 =  loadImage("image/brick.png");
+}
+
+
+function setup() {
+  createCanvas(displayWidth,500);
+  noStroke();
+
+  //애니메이션 이미지 로드
+  곽규섭 = loadAnimation("image/곽규섭_1.png", "image/곽규섭_12.png");
+  키티 = loadAnimation("image/키티_1.png", "image/키티_12.png");
+  
+  //애니메이션 캐릭터 처음 위치
+  곽규섭위치  = { x: width, y:300 };
+  키티위치  = { x: width+100, y:350 };
+  soundOption(); //사운드 켜기
+}
+
+
+function draw() {
+  background('lightblue');
+  fill(255);
+  ellipse(700, 100, 80, 80);
+  ellipse(750, 80, 100, 120);
+  ellipse(800, 100, 80, 80);
+    
+if(벽돌위치 < 0){ 벽돌위치 = 450; }else { 벽돌위치 -= 1; }
+
+
+
+  image(벽돌, 0, 벽돌위치);
+  animation(곽규섭, 곽규섭위치.x, 곽규섭위치.y);
+  animation(키티, 키티위치.x, 키티위치.y);
+
+  곽규섭위치.x -= 6;
+  키티위치.x -= 4;
+
+  if(곽규섭위치.x < 0){ 곽규섭위치.x = width; }
+  if(키티위치.x < 0){ 키티위치.x = width; }
+
+
+  if(점프 === true){ 곽규섭위치.y -= 10; }
+  if(점프 === false && 곽규섭위치.y < 300){ 곽규섭위치.y += 10; }
+  
+  if(곽규섭위치.y < 100){ 점프 = false; }
+
+
+  if(곽규섭위치.y > 300){ 곽규섭위치.y = 300; }
+}
+
+function keyPressed(){
+  if(keyCode === 32){ 점프 = true; }
+}
+
+
+
+function soundOption(){
+  mySound.setVolume(0.1);
+  mySound.play();
+}
+</script>
+</body>
+</html>

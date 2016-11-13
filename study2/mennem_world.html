@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> code study 1</title>
+    
+    <link rel="stylesheet" href="image/style.css"/>
+</head>
+<body>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.play.js"></script>
+    <script>
+        var 멘넴;
+        var isJump = false;
+        
+        
+        function setup(){
+            createCanvas(1000, 600);
+            smooth();
+            
+            멘넴 = new Ball(200, 200);
+            멘넴.애니메이션생성();
+        }
+        
+        function draw(){
+            background(255);
+            
+            
+//            멘넴.display(mouseX, mouseY);
+            멘넴.update();
+            멘넴.aniChange();
+            멘넴.display();
+            drawSprites();
+            
+        }
+        
+        class Ball{
+            constructor(tw, th){
+                this.캐릭터 = createSprite(tw, th);
+                this.캐릭터위치 = { x: 200, y: 400 };
+            }
+            
+            애니메이션생성(){
+             this.캐릭터.addAnimation("walk", "image/곽규섭_4.png", "image/곽규섭_9.png");
+             this.캐릭터.addAnimation("amazing", "image/곽규섭_1.png", "image/곽규섭_3.png");
+            }
+            
+            update(){
+                if(isJump === true && this.캐릭터위치.y > 200){
+                    this.캐릭터위치.y -= 10;
+                } else if(isJump === true && this.캐릭터위치.y <= 200) {
+                    isJump = false;
+                    this.캐릭터위치.y += 10;
+                } else if(isJump === false && this.캐릭터위치.y < 400){
+                    this.캐릭터위치.y += 10;
+                }else if(isJump === false && this.캐릭터위치.y > 400){
+                    this.캐릭터위치.y = 400;
+                }
+            }
+            
+            display(){
+                this.캐릭터.position.x = this.캐릭터위치.x;
+                this.캐릭터.position.y = this.캐릭터위치.y;
+            }
+            
+            aniChange(){
+                if(isJump === true){
+                    this.캐릭터.changeAnimation("amazing");
+                }else{
+                    this.캐릭터.changeAnimation("walk");
+                }
+            }
+        }
+        
+
+        function keyPressed(){
+          if(keyCode === 32){ isJump = true; }
+        }
+
+        
+        function mousePressed(){
+            noLoop();
+        }
+        
+    </script>
+
+
+
+
+    
+</body>
+</html>
