@@ -7,38 +7,187 @@
     <link rel="stylesheet" href="image/style.css"/>
 </head>
 <body>
+    
+    
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/p5.js"></script>
+    <script src="js/lib/p5.sound.js"></script>
     <script src="js/lib/p5.play.js"></script>
+    <script src="js/lib/p5.dom.js"></script>
     <script>
-        var 멘넴;
+        //==========================================================================================
+        
+        // 게임 기본 정보
         var isJump = false;
+        var isLoop = true;
+        var 크기 = { 캔버스: { 너비: 1000, 높이: 600 } };
+        var 코인효과음, 슈퍼마리오노래;
+        
+        // 캐릭터 정보 : 규섭
+        var 멘넴;
+        
+        
+        //==========================================================================================
+        
+        var 게임이름 = "멘넴월드";
+        
+        
+        //배경정보
+        var 배경기준점 = 0;
+        var 배경데이터 = [];
+        var 배경리스트 = [
+            { 배경이름 : "하늘색배경", 배경너비: 1500,  배경색이름: 'deepskyblue' },
+            { 배경이름 : "따뜻한배경", 배경너비: 1800,  배경색이름: 'beige' },
+            { 배경이름 : "상쾌한배경", 배경너비: 5200, 배경색이름: 'azure' }
+        ];
+        
+        //배경 세부디자인
+        var 배경세부디자인 = {
+            지평선높이 : 30,
+            지평선색상 : 'brown',
+            배경이름크기 : 14,
+            배경이름위치 : 130
+        };
+        
+        //==========================================================================================
+        
+        //친구 정보
+        var 친구;
+        var 친구기준점 = 0;
+        var 친구데이터 = [];
+        var 친구리스트 = [
+            { 친구이름 : "그레이프",  친구이미지경로 : 'image/img-03-01.png', 친구상태: "기본"},
+            { 친구이름 : "그린독",    친구이미지경로 : 'image/그린독.png', 친구상태: "기본"},
+            { 친구이름 : "꿀꿀이",  친구이미지경로 : 'image/꿀꿀이.png', 친구상태: "기본"}
+        ];
+        
+        
+        
+        
+        //==========================================================================================
         
         
         function setup(){
-            createCanvas(1000, 600);
+            createCanvas(크기.캔버스.너비, 크기.캔버스.높이);
             smooth();
+            noStroke();
             
-            멘넴 = new Ball(200, 200);
+            //규섭 캐릭터 생성
+            멘넴 = new 캐릭터생성(100, 100);
             멘넴.애니메이션생성();
+            
+            
+            배경정보생성();
+            친구정보생성();
+            
+            
+            배경음악();
+            
+            저장버튼 = createButton('저장하기'); 
+            저장버튼.position(30, 30);  //위치
+            저장버튼.mousePressed(saveimg);                    //클릭시 이벤트함수 호출
+            
+            일시정지버튼 = createButton('일시정지/해제'); 
+            일시정지버튼.position(30, 50);  //위치
+            일시정지버튼.mousePressed(noloops);                    //클릭시 이벤트함수 호출
+            
+            
+            
+            
+            
         }
         
+        //==========================================================================================
         function draw(){
             background(255);
             
+            //배경 표현 영역
+            for(var i = 0; i < 배경데이터.length; i++){
+                var 배경하나 = 배경데이터[i];
+                배경하나.업데이트();
+                배경하나.그리기();
+            }
             
-//            멘넴.display(mouseX, mouseY);
+            
+            for(var i = 0; i < 친구데이터.length; i++){
+                var 친구한명 = 친구데이터[i];
+                친구한명.업데이트();
+
+                if(친구한명.캐릭터.overlap(멘넴.캐릭터)){
+//                    친구한명.이미지교체('change');
+                    코인효과음.play();
+                    친구한명.인사말();
+                }
+
+            }
+            
+
             멘넴.update();
             멘넴.aniChange();
             멘넴.display();
             drawSprites();
             
+            
+            
+            
         }
         
-        class Ball{
+        
+        
+        
+        
+        
+        
+        //==========================================================================================
+        class 친구생성 {
+            constructor(친구이름, 친구시작점, 친구이미지경로, 친구이미지_상태){
+                this.캐릭터 = createSprite(친구시작점, 500);
+                this.캐릭터위치 = { x: 친구시작점, y: 460 };
+                this.친구이름 = 친구이름;
+                this.친구위치 = 친구시작점;
+                this.친구이미지 = 친구이미지경로+'';
+                this.친구이미지_상태 = 친구이미지_상태;
+            }
+            
+            업데이트(){
+                
+                this.캐릭터.position.x -= 2;
+            }
+            애니메이션생성(){
+                console.log("아직 NPC는 img만 적용했습니다.");
+//             this.캐릭터.addAnimation("default", "image/background/detail/bricks_1.png", "image/detail/bricks_2.png");
+//             this.캐릭터.addAnimation("amazing", "image/곽규섭_1.png", "image/곽규섭_3.png");
+            }
+            
+            이미지생성(){
+                console.log(this.친구이미지);
+                this.캐릭터.addImage("default", loadImage(this.친구이미지));
+                this.캐릭터.addImage("change", loadImage('image/코인_투명.png'));
+            }
+            이미지교체(){
+                this.캐릭터.changeImage("change");
+            }
+            인사말(){
+                push();
+                textSize(20);
+                textAlign(CENTER);
+                fill(255);
+                var 캐릭터인사말 = '안녕! 난 ' + this.친구이름 + '야.';
+                text(캐릭터인사말, this.캐릭터.position.x, this.캐릭터.position.y-300);
+                pop();
+            }
+   
+        }
+        
+        
+        
+        
+        
+        //==========================================================================================
+        class 캐릭터생성{
             constructor(tw, th){
                 this.캐릭터 = createSprite(tw, th);
-                this.캐릭터위치 = { x: 200, y: 400 };
+                this.캐릭터위치 = { x: 크기.캔버스.너비/2, y: 400 };
             }
             
             애니메이션생성(){
@@ -71,23 +220,180 @@
                     this.캐릭터.changeAnimation("walk");
                 }
             }
+            
+            
         }
+        
+        
+        
+        
+        //==========================================================================================
+        class 배경생성 {
+            constructor(배경이름, 배경너비, 배경색이름, 배경시작점){ 
+                //구조디자인
+                this.배경이름 = 배경이름;
+                this.배경색이름 = color(배경색이름);
+                this.배경너비 = 배경너비;
+                this.배경높이 = 크기.캔버스.높이;
+                this.배경위치 = 배경시작점;      // 최초 1회
+                
+                //세부디자인
+                this.지평선위치 = (크기.캔버스.높이 - 배경세부디자인.지평선높이);    // 지평선의 기준위치 (coord y, number)
+                this.지평선색상 = color(배경세부디자인.지평선색상);        // 지평선의 색상 (colorname : string)
+                this.벽돌 = createSprite(1400, (크기.캔버스.높이 - 배경세부디자인.지평선높이) - 100);
+                this.벽돌.addImage(loadImage('image/background/detail/displace/bricks.png'));
+                this.랜덤X = random(-30, 30);
+                this.랜덤Y = random(0, 10);
+                
+                
+                
+            }
+            
+            //규섭캐릭터의 위치값 자체를 파라메터로 받는 방법도 있다.
+            업데이트(){
+                this.배경위치 -= 2;
+            }
+            
+            
+            그리기(){
+                this.뒷배경();
+                this.지평선();
+                this.배경이름표시();
+                this.구름(this.랜덤Y);
+                
+            }
+            
+            뒷배경(){
+                push();
+                noStroke();
+                fill(this.배경색이름);
+                rect(this.배경위치, 0, this.배경너비, this.배경높이);
+                pop();
+            }
+            
+            지평선(){
+                push();
+                fill(this.지평선색상);
+                rect(0, this.지평선위치, 크기.캔버스.너비, 배경세부디자인.지평선높이);
+                pop();
+            }
+            
+            배경이름표시(){
+                push();
+                fill(0);
+                textSize(배경세부디자인.배경이름크기);
+                text(""+this.배경이름, this.배경위치 +10, 배경세부디자인.배경이름위치);
+                pop();
+            }
+            
+            구름(randomY){ 
+                push();
+                fill('white');
+                var 구름시작점 = this.배경위치 + 크기.캔버스.너비;
+                ellipse(구름시작점-120, 124 + randomY, 60, 50);
+                ellipse(구름시작점-100, 120 + randomY, 70, 70);
+                ellipse(구름시작점-80, 124  + randomY, 60, 50);
+                pop();
+            }
+            
+        }
+        
+        
+        
+        //==========================================================================================
+        
+        //도움함수
+        function 배경정보생성(){
+            //배경 정보 생성
+            for(var i=0; i < 배경리스트.length; i++){
+                var 배경객체 = 배경리스트[i];
+                var 배경 = new 배경생성(배경객체.배경이름, 배경객체.배경너비, 배경객체.배경색이름, 배경기준점);
+                배경데이터.push(배경);
+                
+                배경기준점 += 배경객체.배경너비;
+            }
+            console.log("생성된 배경의 수 : ", 배경데이터.length);
+        }
+        
+        function 친구정보생성(){
+            //친구 정보 생성
+            var 배경기준점변수 = 400;
+            for(var i=0; i < 친구리스트.length; i++){
+                var 친구객체 = 친구리스트[i];
+                var 친구 = new 친구생성(친구객체.친구이름, (800*i), 친구객체.친구이미지경로+'', 친구객체.친구상태);
+                
+                친구데이터.push(친구);
+            }
+            for(var j=0; j < 친구리스트.length; j++){
+                친구데이터[j].이미지생성();
+                
+            }
+            
+            console.log("생성 된 친구의 수 : ", 친구데이터.length);
+        }
+        
+        
+        
+        
+        
+        
+        
         
 
         function keyPressed(){
           if(keyCode === 32){ isJump = true; }
         }
 
+//        
+//        function mousePressed(){
+//            noLoop();
+//            console.log("일시정지");
+//        }
+//        
+//        
+
+
+        function preload() {
+          슈퍼마리오노래 = loadSound('sound/supermario.mp3');
+          코인효과음 = loadSound('sound/coin.mp3');
+        }
+
         
-        function mousePressed(){
-            noLoop();
+
+
+        function 배경음악(){
+          슈퍼마리오노래.setVolume(0.1);
+          슈퍼마리오노래.play();
         }
         
+
+
+        function saveimg(){
+            var 날짜 = new Date();
+            var d = new Date();
+            console.log("save img btn click!!");
+            saveCanvas(게임이름 + d, 'png');
+        }
+        
+        function noloops(){
+            if(isLoop){
+                noLoop();
+            } else {
+                redraw();
+            }
+            
+            
+        }
+        
+        
+        
+        
     </script>
+    
 
 
 
-
+    
     
 </body>
 </html>
