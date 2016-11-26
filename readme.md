@@ -78,9 +78,9 @@ SeMA 비엔날레 <불확실한 학교> 프로그램의 참여 작가인 곽규�
  
  
 ### > 1차 스터디  
-![1차 스터디 사진1](http://stuckyi.studio/codestudy/day1_01.png)  
-![1차 스터디 사진2](http://stuckyi.studio/codestudy/day1_02.png)  
-![1차 스터디 사진3](http://stuckyi.studio/codestudy/day1_03.png)  
+![1차 스터디 사진1](http://stuckyi.studio/codestudy/day1_01.jpg)  
+![1차 스터디 사진2](http://stuckyi.studio/codestudy/day1_02.jpg)  
+![1차 스터디 사진3](http://stuckyi.studio/codestudy/day1_03.jpg)  
   
     
 **목적**  
