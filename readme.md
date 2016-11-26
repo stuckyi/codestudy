@@ -103,8 +103,8 @@ SeMA 비엔날레 <불확실한 학교> 프로그램의 참여 작가인 곽규�
 5. 다음 수업 일정 및 방향에 대해 논의 및 정리    
   
     
-![1차 스터디 예제화면1](http://stuckyi.studio/codestudy/day1_ex01.png)  
-![1차 스터디 예제화면2](http://stuckyi.studio/codestudy/day1_ex02.png)  
+![1차 스터디 예제화면1](http://stuckyi.studio/codestudy/day1_ex01.gif)  
+![1차 스터디 예제화면2](http://stuckyi.studio/codestudy/day1_ex02.gif)  
   
     
       
@@ -122,8 +122,8 @@ SeMA 비엔날레 <불확실한 학교> 프로그램의 참여 작가인 곽규�
  
  
 ### > 2차 스터디  
-![2차 스터디](http://stuckyi.studio/codestudy/day2_01.png)  
-![2차 스터디](http://stuckyi.studio/codestudy/day2_02.png)  
+![2차 스터디](http://stuckyi.studio/codestudy/day2_01.jpg)  
+![2차 스터디](http://stuckyi.studio/codestudy/day2_02.jpg)  
 ![2차 스터디](http://stuckyi.studio/codestudy/day2_03.png)  
   
     
@@ -141,7 +141,7 @@ SeMA 비엔날레 <불확실한 학교> 프로그램의 참여 작가인 곽규�
 5. 완성한 예제를 다음팟플레이어 프로그램을 통해 화면 녹화하여 규섭씨 블로그에 올리기  
 6. 파일질라 프로그램을 이용하여 웹서버에 예제 올리기  
 7. [예제를 실은 웹페이지 주소](http://stuckyi.studio/mennem/codestudy-master/study2/mennem_world.html)를 [블로그](http://blog.naver.com/mennem/220862396552)에 올리기  
-![2차 스터디 예제 화면](http://stuckyi.studio/codestudy/day2_ex01.png)  
+![2차 스터디 예제 화면](http://stuckyi.studio/codestudy/day2_ex01.gif)  
   
   
 **2차 스터디 후기**  
