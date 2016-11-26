@@ -175,7 +175,7 @@ SeMA 비엔날레 <불확실한 학교> 프로그램의 참여 작가인 곽규�
 - [p5play](http://p5play.molleindustria.org/) : 자바스크립트 라이브러리  
 - [firefox](https://www.mozilla.org/ko/firefox/new/) : 웹 브라우저  
 - [fileZilla](https://filezilla-project.org/) : FTP 프로그램  
-- 예제 파일은 Github으로 공유  
+- 예제 파일은 [Github](https://github.com/stuckyi/codestudy/)으로 공유  
   
     
 ## 기타 링크  
